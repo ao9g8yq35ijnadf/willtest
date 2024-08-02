@@ -633,11 +633,12 @@ const token = new (0, _room.SkyWayAuthToken)({
     const data = await (0, _room.SkyWayStreamFactory).createDataStream();
     writeButton.onclick = ()=>{
         data.write(dataStreamInput.value);
-        dataStreamInput.value = "";
         const elm = document.createElement("div");
         remoteMediaArea.appendChild(elm);
+        console.log(data);
         elm.innerText = "\n";
-        elm.innerText += myid + ": " + data + "\n";
+        elm.innerText += myid + ": " + dataStreamInput.value + "";
+        dataStreamInput.value = "";
     };
     joinButton.onclick = async ()=>{
         if (channelNameInput.value === "") return;
