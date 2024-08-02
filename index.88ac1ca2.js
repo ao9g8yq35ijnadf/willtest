@@ -649,7 +649,7 @@ const token = new (0, _room.SkyWayAuthToken)({
         const subscribeAndAttach = (publication)=>{
             if (publication.publisher.id === me.id) return;
             const subscribeButton = document.createElement("button");
-            if (publication.contentType != "data") {
+            if (publication.contentType == "data") {
                 subscribeButton.textContent = `${publication.publisher.id}: ${publication.contentType}`;
                 buttonArea.appendChild(subscribeButton);
             }
@@ -682,7 +682,7 @@ const token = new (0, _room.SkyWayAuthToken)({
                             remoteMediaArea.appendChild(elm);
                             elm.innerText = "data\n";
                             stream.onData.add((data)=>{
-                                elm.innerText += data + "\n";
+                                elm.innerText += publication.publisher.id + ": " + data + "\n";
                             });
                         }
                 }
