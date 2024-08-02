@@ -629,10 +629,15 @@ const token = new (0, _room.SkyWayAuthToken)({
     const { audio , video  } = await (0, _room.SkyWayStreamFactory).createMicrophoneAudioAndCameraStream();
     video.attach(localVideo);
     await localVideo.play();
+    let myid = "";
     const data = await (0, _room.SkyWayStreamFactory).createDataStream();
     writeButton.onclick = ()=>{
         data.write(dataStreamInput.value);
         dataStreamInput.value = "";
+        const elm = document.createElement("div");
+        remoteMediaArea.appendChild(elm);
+        elm.innerText = "\n";
+        elm.innerText += myid + ": " + data + "\n";
     };
     joinButton.onclick = async ()=>{
         if (channelNameInput.value === "") return;
@@ -643,6 +648,7 @@ const token = new (0, _room.SkyWayAuthToken)({
         });
         const me = await channel.join();
         myId.textContent = me.id;
+        myid = me.id;
         await me.publish(audio);
         await me.publish(video);
         await me.publish(data);
@@ -680,7 +686,7 @@ const token = new (0, _room.SkyWayAuthToken)({
                         {
                             const elm = document.createElement("div");
                             remoteMediaArea.appendChild(elm);
-                            elm.innerText = "data\n";
+                            elm.innerText = "\n";
                             stream.onData.add((data)=>{
                                 elm.innerText += publication.publisher.id + ": " + data + "\n";
                             });
